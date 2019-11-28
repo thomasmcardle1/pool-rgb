@@ -1,0 +1,6 @@
+Connect to mysql
+
+sudo mysql -u root -p root
+
+Mysql user and password for this application
+CREATE USER 'adonis'@'localhost' IDENTIFIED BY 'this!extremely@secure#password';
