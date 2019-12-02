@@ -21,9 +21,16 @@ class LedController {
   }
 
   changeColor(red, green, blue, white = null) {
-    this.color = {red, green, blue, white}
+    this._color = {red, green, blue, white}
     this.setColorGPIOPins();
     return this.toString();
+  }
+
+  setModeScheme(newMode, scheme) {
+    newMode = newMode.toUpperCase();
+    if (!this._mode.setMode(newMode)) return false;
+    console.log(scheme);
+    if(this._mode.currentMode() == 'scheme') this.spawnColorWheelColorScheme(scheme);
   }
 
   setMode(newMode, color) {
@@ -34,12 +41,12 @@ class LedController {
     if(this._mode.currentMode() == 'WHEEL') this.spawnColorWheel();
     if(this._mode.currentMode() == 'WHITE') this.setColorModeWhite();
     if(this._mode.currentMode() == 'RGB') {
-      console.log('rgb mode set... go crazy');
       this.changeColor(color.red, color.green, color.blue, (color.white ? color.white : null))
     }
   }
 
   setColorGPIOPins() {
+    console.log(`set color pins: (${this._color.red}, ${this._color.green}, ${this._color.blue}, ${this._color.whites})`)
     if (this._RED_LED) RED_LED.pwmWrite(this._color.red);
     if (this._GREEN_LED) GREEN_LED.pwmWrite(this._color.green);
     if (this._BLUE_LED) BLUE_LED.pwmWrite(this._color.blue);
@@ -55,7 +62,6 @@ class LedController {
   }
 
   setColorModeWhite() {
-    console.log('color changed to white mode')
     this.changeColor(255, 255, 255, 255);
   }
 
@@ -64,7 +70,7 @@ class LedController {
     this._wheel_process = fork('app/Scripts/ColorWheel.js');
 
     this._wheel_process.on('message', (msg) => {
-      console.log(`message ${msg}`);
+      console.log(msg);
       if (msg.colors) {
         this.changeColor(msg.colors.red, msg.colors.green, msg.colors.blue);
       }
@@ -87,6 +93,10 @@ class LedController {
 
   killColorWheelProcess () {
     if (this._wheel_process) this._wheel_process.kill('SIGINT');
+  }
+
+  spawnColorWheelColorScheme(colorscheme) {
+    console.log(colorscheme);
   }
   /******************************************************************/
 

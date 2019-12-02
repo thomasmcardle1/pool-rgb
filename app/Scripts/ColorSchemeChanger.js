@@ -32,6 +32,7 @@ process.on('message', (msg) => {
   }
 });
 
+
 var runCycle = function () {
   console.log('running color scheme changer ....')
   setInterval(() => {

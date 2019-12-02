@@ -7,6 +7,7 @@ import AddColor from './AddColor';
 import EditColor from './EditColor';
 import Schemes from './Schemes';
 import EditScheme from './EditScheme';
+import AddScheme from './AddScheme';
 
 const Main = () => (
   <main>
@@ -16,6 +17,7 @@ const Main = () => (
         <Route exact path='/colors/edit/:id' component={EditColor} />
         <Route exact path='/colors/add' component={AddColor} />
         <Route exact path='/schemes' component={Schemes} />
+        <Route exact path='/schemes/add' component={AddScheme} />
         <Route exact path='/schemes/edit/:name/:id' component={EditScheme} />
         <Route exact path='/mode/rgb' component={RGBMode} />
 

@@ -5,12 +5,12 @@ import {CONFIG} from './Constants';
 import ColorGrid from './ColorGrid';
 import Sortable from 'react-sortablejs';
 
-class EditScheme extends Component{
+class AddScheme extends Component{
   constructor(props) {
     super(props)
     this.state = {
         colors: [],
-        name: this.props.match.params.name,
+        name: "",
         changed: false,
         original_colors: null,
         allColors: [],
@@ -24,7 +24,6 @@ class EditScheme extends Component{
   }
 
   componentWillMount() {
-    this.getColorsInScheme();
     this.getAllColors()
   }
 
@@ -39,24 +38,13 @@ class EditScheme extends Component{
     })
   }
 
-  getColorsInScheme() {
-    axios.get(`http://${CONFIG.ip}:${CONFIG.port}/api/colorsinscheme/${this.props.match.params.id}`)
-    .then(response => {
-      var colors = response.data;
-      colors = colors.sort((a,b)=> {
-        return a.pivot.order - b.pivot.order;
-      });
-      
-      this.setState({colors: colors, changed: false});
-    })
-  }
-
   onCancelEdit() {
-    this.getColorsInScheme();
+    this.history.push('schemes');
   }
 
   onColorSelect(color) {
     var colors = this.state.colors;
+
     color.order = this.state.colors.length;
     colors.push(color);
     this.setState({addNewColor: false, colors:colors, changed: true});
@@ -74,7 +62,7 @@ class EditScheme extends Component{
   saveColorScheme() {
     axios.request({
       method: 'post',
-      url: `http://${CONFIG.ip}:${CONFIG.port}/api/colorscheme/${this.props.match.params.id}`,
+      url: `http://${CONFIG.ip}:${CONFIG.port}/api/colorscheme/add`,
       data: { colors: this.state.colors, name: this.state.name }
     }).then(response => {
       this.props.history.push('/schemes');
@@ -119,20 +107,13 @@ class EditScheme extends Component{
         { !this.state.addNewColor &&
         <div>
           <div className="text-left"> <Link to='/schemes' className="btn btn-secondary">Back </Link> </div>
-
           <br/>
-          { !this.state.editName ?
-            <div>
-              <h1 className="text-capitalize"> {this.state.name} <button type="button" className="btn btn-secondary" onClick={()=>{this.setState({editName: true})}}>Edit</button></h1>
+
+          <div className="input-group mb-3">
+            <input type="text" className="form-control" value={this.state.name} onChange={this.updateName} />
+            <div className="input-group-append">
             </div>
-            : 
-            <div className="input-group mb-3">
-              <input type="text" className="form-control" value={this.state.name} onChange={this.updateName} />
-              <div className="input-group-append">
-                <button className="btn btn-success" type="button" onClick={()=>{this.setState({editName: false})}}>Done</button>
-              </div>
-            </div>
-          }
+          </div>
 
           <ul className="list-group" >
             <Sortable
@@ -181,4 +162,4 @@ class EditScheme extends Component{
   }
 }
 
-export default EditScheme;
+export default AddScheme;

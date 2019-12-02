@@ -57,7 +57,7 @@ var runCycle = function () {
       }
     }
     process.send({ colors: COLORS });
-  }, 100);
+  }, speed);
 }
 
 console.log("Process has ended");
