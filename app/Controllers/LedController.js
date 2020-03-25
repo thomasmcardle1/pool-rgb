@@ -11,7 +11,6 @@ class LedController {
   constructor(mode) {
     this._speed = 1000; // 1 second
     this._color = new Color();
-    this.setColorModeWhite();
     this._mode = mode;
     this._scheme = null;
 
@@ -19,6 +18,8 @@ class LedController {
     if (Env.get('BLUE_GPIO')) this._GREEN_LED = new Gpio(Env.get('GREEN_GPIO'), {mode: Gpio.OUTPUT});
     if (Env.get('GREEN_GPIO')) this._BLUE_LED = new Gpio(Env.get('BLUE_GPIO'), {mode: Gpio.OUTPUT});
     if (Env.get('WHITE_GPIO')) this._WHITE_LED = new Gpio(Env.get('WHITE_GPIO'), {mode: Gpio.OUTPUT});
+
+    this.setColorModeWhite();
   }
 
   changeColor(red, green, blue, white = null) {
@@ -48,10 +49,10 @@ class LedController {
 
   setColorGPIOPins() {
     console.log(`set color pins: (${this._color.red}, ${this._color.green}, ${this._color.blue}, ${this._color.white})`)
-    if (this._RED_LED) RED_LED.pwmWrite(this._color.red);
-    if (this._GREEN_LED) GREEN_LED.pwmWrite(this._color.green);
-    if (this._BLUE_LED) BLUE_LED.pwmWrite(this._color.blue);
-    if (this._WHITE_LED) WHITE_LED.pwmWrite(this._color.white);
+    if (this._RED_LED) this._RED_LED.pwmWrite(this._color.red);
+    if (this._GREEN_LED) this._GREEN_LED.pwmWrite(this._color.green);
+    if (this._BLUE_LED) this._BLUE_LED.pwmWrite(this._color.blue);
+    if (this._WHITE_LED) this._WHITE_LED.pwmWrite(this._color.white);
   }
 
   getColor() {
