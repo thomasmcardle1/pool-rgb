@@ -32,7 +32,7 @@ class CustomNav extends Component {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto" onSelect={this.close}>
             <Link to="/" className="pb-2"> <i className="fa fa-exchange-alt"></i> Modes </Link>
-            <Link to="/schemes" className="pb-2"> <i className="fa fa-spinner"></i> Schemes </Link>
+            {/* <Link to="/schemes" className="pb-2"> <i className="fa fa-spinner"></i> Schemes </Link> */}
             <Link to="/colors/add" className="pb-2"> <i className="fa fa-plus"></i> Add Color </Link>
             <Link to="/colors" className="pb-2"> <i className="fa fa-swatchbook"></i> All Colors </Link>
           </Nav>

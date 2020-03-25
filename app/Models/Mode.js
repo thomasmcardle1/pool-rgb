@@ -4,7 +4,7 @@ const Model = use('Model')
 
 class Mode {
   constructor() {
-    this.modes = ['RGB', 'WHITE', 'WHEEL', 'SCHEME'];
+  this.modes = ['RGB', 'WHITE', 'WHEEL', /*'SCHEME'*/];
     this.current = "RGB";
   }
 

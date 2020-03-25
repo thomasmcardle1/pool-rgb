@@ -16,9 +16,9 @@ const Main = () => (
         <Route exact path='/colors' component={Colors} />
         <Route exact path='/colors/edit/:id' component={EditColor} />
         <Route exact path='/colors/add' component={AddColor} />
-        <Route exact path='/schemes' component={Schemes} />
-        <Route exact path='/schemes/add' component={AddScheme} />
-        <Route exact path='/schemes/edit/:name/:id' component={EditScheme} />
+        {/* <Route exact path='/schemes' component={Schemes} /> */}
+        {/* <Route exact path='/schemes/add' component={AddScheme} /> */}
+        {/* <Route exact path='/schemes/edit/:name/:id' component={EditScheme} /> */}
         <Route exact path='/mode/rgb' component={RGBMode} />
 
         {/* <Route exact path='/mode/:id' component= {Mode} /> */}

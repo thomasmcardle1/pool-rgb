@@ -33,7 +33,7 @@ class CurrentModeBar extends Component {
 
   componentDidMount() {
     this.getCurrentStatus();
-    // setInterval(this.getCurrentStatus, 5000);
+    setInterval(this.getCurrentStatus, 5000);
   }
 
   render() {

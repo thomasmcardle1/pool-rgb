@@ -11,6 +11,7 @@ class LedController {
   constructor(mode) {
     this._speed = 1000; // 1 second
     this._color = new Color();
+    this.setColorModeWhite();
     this._mode = mode;
     this._scheme = null;
 
@@ -46,11 +47,11 @@ class LedController {
   }
 
   setColorGPIOPins() {
-    console.log(`set color pins: (${this._color.red}, ${this._color.green}, ${this._color.blue}, ${this._color.whites})`)
+    console.log(`set color pins: (${this._color.red}, ${this._color.green}, ${this._color.blue}, ${this._color.white})`)
     if (this._RED_LED) RED_LED.pwmWrite(this._color.red);
     if (this._GREEN_LED) GREEN_LED.pwmWrite(this._color.green);
     if (this._BLUE_LED) BLUE_LED.pwmWrite(this._color.blue);
-    if (this._WHITE_LED) WHITE_LED.pwmWrite(this._color.blue);
+    if (this._WHITE_LED) WHITE_LED.pwmWrite(this._color.white);
   }
 
   getColor() {
